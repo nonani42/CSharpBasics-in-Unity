@@ -8,6 +8,7 @@ namespace Ballgame
     {
         private bool _isInteractive;
         public Transform _transform;
+        protected Color _color;
 
         public bool IsInteractive 
         {
@@ -23,19 +24,19 @@ namespace Ballgame
             }
         }
 
-        void Awake()
-        {
-            _transform = GetComponent<Transform>();
-        }
-
         void Start()
         {
             IsInteractive = true;
+            _color = Random.ColorHSV();
+            if(TryGetComponent(out Renderer renderer))
+            {
+                renderer.sharedMaterial.color = _color;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (IsInteractive || other.CompareTag("Player"))
             {
                 Interaction();
                 IsInteractive = false;

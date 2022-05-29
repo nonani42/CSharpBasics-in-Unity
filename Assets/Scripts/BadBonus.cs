@@ -1,6 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+using Random = UnityEngine.Random;
 
 namespace Ballgame
 {
@@ -9,10 +11,13 @@ namespace Ballgame
         private float flightHeight;
         private float rotationSpeed;
 
+        public event Action<string, Color> OnCaughtPlayer = delegate (string str, Color color) { };
+
         private void Awake()
         {
-            flightHeight = Random.Range(1f, 5f);
-            rotationSpeed = Random.Range(13f, 40f);
+            _transform = GetComponent<Transform>();
+            flightHeight = Random.Range(1f, 2f);
+            rotationSpeed = Random.Range(20f, 40f);
         }
 
         public void Fly()
@@ -33,7 +38,7 @@ namespace Ballgame
 
         protected override void Interaction()
         {
-
+            OnCaughtPlayer.Invoke(gameObject.name, _color);
         }
     }
 }
