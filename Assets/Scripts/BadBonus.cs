@@ -16,7 +16,7 @@ namespace Ballgame
         private void Awake()
         {
             _transform = GetComponent<Transform>();
-            flightHeight = Random.Range(1f, 2f);
+            flightHeight = Random.Range(1f, 4f);
             rotationSpeed = Random.Range(20f, 40f);
         }
 

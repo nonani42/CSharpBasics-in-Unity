@@ -1,51 +1,84 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Ballgame
 {
     public class Main : MonoBehaviour
     {
         private ListExecuteObjects _intereactiveObjects;
-        private ListBonusObjects _bonusObjects;
 
         private InputController _inputController;
         private BonusFabric _bonusFabric;
+        private ViewGoodBonus _viewGoodBonus;
+        private ViewBadBonus _viewBadBonus;
+        private Reference _ref;
+
+        private int _bonusCount;
 
         [SerializeField] private GameObject _player;
 
 
         void Awake()
         {
+            Time.timeScale = 1f;
             _inputController = new InputController(_player.GetComponent<Unit>());
             _intereactiveObjects = new ListExecuteObjects();
-            _bonusObjects = new ListBonusObjects();
-            _bonusFabric = FindObjectOfType<BonusFabric>();
+            _bonusFabric = new BonusFabric();
+            _ref = new Reference();
+            _viewGoodBonus = new ViewGoodBonus(_ref.GoodBonus);
+            _viewBadBonus = new ViewBadBonus(_ref.BadBonus);
+            _ref.RestartBtn.SetActive(false);
+            _ref.RestartBtn.GetComponent<Button>().onClick.AddListener(RestartGame);
+
             _intereactiveObjects.AddExecuteObject(_inputController);
             GetBonuses();
+
+
             SetEvents();
         }
 
         private void SetEvents()
         {
-            foreach (var bonus in _bonusObjects)
+            foreach (var bonus in _intereactiveObjects)
             {
-                if(bonus is GoodBonus)
+                if(bonus is GoodBonus _bonusG)
                 {
-                    (bonus as GoodBonus).AddPoints += GoodThing;
+                    _bonusG.AddPoints += AddBonus;
                 }
-                else if(bonus is BadBonus)
+                else if(bonus is BadBonus _bonusB)
                 {
-                    (bonus as BadBonus).OnCaughtPlayer += BadThing;
+                    _bonusB.OnCaughtPlayer += EndGame;
                 }
             }
         }
 
+        private void RestartGame()
+        {
+            SceneManager.LoadScene(0);
+        }
+
+        private void AddBonus(int value)
+        {
+            _bonusCount += value;
+            _viewGoodBonus.Display(_bonusCount);
+        }
+
+        private void EndGame(string name, Color color)
+        {
+            _ref.RestartBtn.SetActive(true);
+            Time.timeScale = 0f;
+            _viewBadBonus.GameOver(name, color);
+        }
+
         private void GetBonuses()
         {
-            Bonus[] temp = _bonusFabric.CreateBonuses();
+            List<IExecute> temp = _bonusFabric.CreateBonuses();
             foreach (var bonus in temp)
             {
-                _bonusObjects.AddBonusObject(bonus);
+                _intereactiveObjects.AddExecuteObject(bonus);
             }
         }
 
@@ -59,16 +92,6 @@ namespace Ballgame
                 }
                 _intereactiveObjects[i].Update();
             }
-        }
-
-        private void BadThing(string str, Color color)
-        {
-            Debug.Log($"Collected {str} colored {color}");
-        }
-
-        private void GoodThing(int points)
-        {
-            Debug.Log($"Collected good bonus, added points: {points}");
         }
 
     }
