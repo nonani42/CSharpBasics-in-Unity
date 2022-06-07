@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Ballgame
 {
-    public abstract class Bonus : MonoBehaviour, IExecute
+    public abstract class Bonus : MonoBehaviour, IInteractable, IExecute
     {
         private bool _isInteractive;
         public Transform _transform;
@@ -43,8 +43,9 @@ namespace Ballgame
             }
         }
 
+        public abstract void Update();
+
         protected abstract void Interaction();
 
-        public abstract void Update();
     }
 }

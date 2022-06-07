@@ -6,11 +6,11 @@ using Random = UnityEngine.Random;
 
 namespace Ballgame
 {
-    public class GoodBonus : Bonus, IFly, IFlicker, IInteractable
+    public class GoodBonus : Bonus, IFly, IFlicker
     {
-        private float flightHeight;
-        [SerializeField] private Material _material;
-        private int _points;
+        public float flightHeight;
+        [SerializeField] public Material _material;
+        public int _points;
 
         public event Action<int> AddPoints = delegate (int points) { };
 

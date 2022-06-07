@@ -8,7 +8,6 @@ namespace Ballgame
     public class ViewGoodBonus
     {
         private Text _labelText;
-        int _current;
 
         public ViewGoodBonus(GameObject goodBonusPrefab)
         {
@@ -20,6 +19,5 @@ namespace Ballgame
         {
             _labelText.text = $"Bonus count: {count}";
         }
-
     }
 }

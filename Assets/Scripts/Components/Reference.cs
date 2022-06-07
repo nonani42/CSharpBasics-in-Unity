@@ -9,6 +9,8 @@ namespace Ballgame
         private GameObject _goodBonus;
         private GameObject _badBonus;
         private GameObject _restartBtn;
+        private GameObject _winScreen;
+
 
         private Canvas _canvas;
         private Camera _mainCamera;
@@ -33,12 +35,26 @@ namespace Ballgame
             {
                 if (_badBonus == null)
                 {
-                    GameObject temp = Resources.Load<GameObject>("UI/BadBonus");
+                    GameObject temp = Resources.Load<GameObject>("UI/GameOver");
                     _badBonus = Object.Instantiate(temp, Canvas.transform);
                 }
                 return _badBonus;
             }
             set => _badBonus = value;
+        }
+
+        public GameObject WinScreen
+        {
+            get
+            {
+                if (_winScreen == null)
+                {
+                    GameObject temp = Resources.Load<GameObject>("UI/Win");
+                    _winScreen = Object.Instantiate(temp, Canvas.transform);
+                }
+                return _winScreen;
+            }
+            set => _winScreen = value;
         }
 
         public GameObject RestartBtn

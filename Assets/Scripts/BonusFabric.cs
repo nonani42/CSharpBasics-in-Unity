@@ -27,8 +27,8 @@ namespace Ballgame
 
         private void DividePoints()
         {
-            _goodBonusAmount = Points.Count / 2;
-            _badBonusAmount = Points.Count - _goodBonusAmount;
+            GoodBonusAmount = Points.Count / 2;
+            _badBonusAmount = Points.Count - GoodBonusAmount;
         }
 
         public GameObject GoodBonusPrefab
@@ -75,11 +75,13 @@ namespace Ballgame
             private set => _points = value;
         }
 
+        public int GoodBonusAmount { get => _goodBonusAmount; private set => _goodBonusAmount = value; }
+
         public List<IExecute> CreateBonuses()
         {
             int r;
             List<IExecute> temp = new();
-            for (int i = 0; i < _goodBonusAmount; i++)
+            for (int i = 0; i < GoodBonusAmount; i++)
             {
                 r = Random.Range(0, (Points.Count));
                 temp.Add(Object.Instantiate(GoodBonusPrefab, Points[r]).GetComponent<IExecute>());

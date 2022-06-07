@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1442464875840148381}
   - component: {fileID: 1442464875840148378}
   m_Layer: 5
-  m_Name: BadBonus
+  m_Name: GameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

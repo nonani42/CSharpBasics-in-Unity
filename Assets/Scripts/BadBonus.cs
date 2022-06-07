@@ -6,10 +6,10 @@ using Random = UnityEngine.Random;
 
 namespace Ballgame
 {
-    public class BadBonus : Bonus, IRotate, IFly, IInteractable
+    public class BadBonus : Bonus, IRotate, IFly
     {
-        private float flightHeight;
-        private float rotationSpeed;
+        public float flightHeight;
+        public float rotationSpeed;
 
         public event Action<string, Color> OnCaughtPlayer = delegate (string str, Color color) { };
 
