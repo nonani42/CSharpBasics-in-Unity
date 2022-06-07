@@ -77,20 +77,20 @@ namespace Ballgame
 
         public int GoodBonusAmount { get => _goodBonusAmount; private set => _goodBonusAmount = value; }
 
-        public List<IExecute> CreateBonuses()
+        public List<Bonus> CreateBonuses()
         {
             int r;
-            List<IExecute> temp = new();
+            List<Bonus> temp = new();
             for (int i = 0; i < GoodBonusAmount; i++)
             {
                 r = Random.Range(0, (Points.Count));
-                temp.Add(Object.Instantiate(GoodBonusPrefab, Points[r]).GetComponent<IExecute>());
+                temp.Add(Object.Instantiate(GoodBonusPrefab, Points[r]).GetComponent<Bonus>());
                 Points.Remove(Points[r]);
             }
             for (int i = 0; i < _badBonusAmount; i++)
             {
                 r = Random.Range(0, (Points.Count));
-                temp.Add(Object.Instantiate(BadBonusPrefab, Points[r]).GetComponent<IExecute>());
+                temp.Add(Object.Instantiate(BadBonusPrefab, Points[r]).GetComponent<Bonus>());
                 Points.Remove(Points[r]);
             }
             return temp;

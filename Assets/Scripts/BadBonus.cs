@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Ballgame
 {
-    public class BadBonus : Bonus, IRotate, IFly
+    public class BadBonus : Bonus
     {
         public float flightHeight;
         public float rotationSpeed;
@@ -18,22 +18,6 @@ namespace Ballgame
             _transform = GetComponent<Transform>();
             flightHeight = Random.Range(1f, 4f);
             rotationSpeed = Random.Range(20f, 40f);
-        }
-
-        public void Fly()
-        {
-            _transform.position = new Vector3(_transform.position.x, Mathf.PingPong(Time.time, flightHeight), _transform.position.z);
-        }
-
-        public void Rotate()
-        {
-            _transform.Rotate(Vector3.up * (Time.deltaTime * rotationSpeed), Space.World);
-        }
-
-        public override void Update()
-        {
-            Fly();
-            Rotate();
         }
 
         protected override void Interaction()

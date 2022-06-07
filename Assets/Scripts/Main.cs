@@ -9,6 +9,7 @@ namespace Ballgame
     public class Main : MonoBehaviour
     {
         private ListExecuteObjects _intereactiveObjects;
+        private List<Bonus> _bonusList;
 
         private InputController _inputController;
         private CameraController _cameraController;
@@ -49,7 +50,7 @@ namespace Ballgame
 
         private void SetEvents()
         {
-            foreach (var bonus in _intereactiveObjects)
+            foreach (var bonus in _bonusList)
             {
                 if(bonus is GoodBonus _bonusG)
                 {
@@ -88,10 +89,19 @@ namespace Ballgame
 
         private void GetBonuses()
         {
-            List<IExecute> temp = _bonusFabric.CreateBonuses();
-            foreach (var bonus in temp)
+            _bonusList = _bonusFabric.CreateBonuses();
+            foreach (var bonus in _bonusList)
             {
-                _intereactiveObjects.AddExecuteObject(bonus);
+                if (bonus is GoodBonus _bonusG)
+                {
+                    GoodBonusController t = new GoodBonusController(_bonusG);
+                    _intereactiveObjects.AddExecuteObject(t);
+                }
+                else if (bonus is BadBonus _bonusB)
+                {
+                    BadBonusController t = new BadBonusController(_bonusB);
+                    _intereactiveObjects.AddExecuteObject(t);
+                }
             }
         }
 
