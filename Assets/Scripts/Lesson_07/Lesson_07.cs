@@ -14,9 +14,9 @@ namespace Lesson_07
 
         public void Start()
         {
-            SecondEx();
-            ThirdEx();
-            FourthEx();
+            //SecondEx();
+            //ThirdEx();
+            //FourthEx();
         }
 
         private static void SecondEx()

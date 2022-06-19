@@ -11,9 +11,57 @@ namespace Ballgame
         private GameObject _restartBtn;
         private GameObject _winScreen;
 
+        private GameObject _goodBonusPrefab;
+        private GameObject _badBonusPrefab;
+        private List<Transform> _points;
 
         private Canvas _canvas;
         private Camera _mainCamera;
+
+        public GameObject GoodBonusPrefab
+        {
+            get
+            {
+                if (_goodBonusPrefab == null)
+                {
+                    _goodBonusPrefab = Resources.Load<GameObject>("Bonus/GoodBonus");
+                }
+                return _goodBonusPrefab;
+            }
+            set => _goodBonusPrefab = value;
+        }
+
+        public GameObject BadBonusPrefab
+        {
+            get
+            {
+                if (_badBonusPrefab == null)
+                {
+                    _badBonusPrefab = Resources.Load<GameObject>("Bonus/BadBonus");
+                }
+                return _badBonusPrefab;
+            }
+            private set => _badBonusPrefab = value;
+        }
+
+        public List<Transform> BonusPoints
+        {
+            get
+            {
+                if (_points == null)
+                {
+                    GameObject temp = Object.Instantiate(Resources.Load<GameObject>("Bonus/SpawnBonuses"));
+                    _points = new List<Transform>();
+                    foreach (Transform child in temp.transform)
+                    {
+                        _points.Add(child);
+                    }
+                }
+                return _points;
+            }
+            private set => _points = value;
+        }
+
 
         public GameObject GoodBonus
         {

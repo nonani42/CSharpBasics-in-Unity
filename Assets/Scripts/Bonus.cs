@@ -4,9 +4,19 @@ using UnityEngine;
 
 namespace Ballgame
 {
+    public struct BonusData: IData
+    {
+        public string BonusName;
+        public bool BonusInteractive;
+        public SVect3 BonusPosition;
+    }
+
     public abstract class Bonus : MonoBehaviour, IInteractable
     {
-        private bool _isInteractive;
+        protected BonusData BonusData;
+        protected ISaveData<BonusData> _data;
+
+        protected bool _isInteractive;
         public Transform _transform;
         protected Color _color;
 
@@ -44,6 +54,7 @@ namespace Ballgame
         }
 
         protected abstract void Interaction();
+        public abstract void Save();
 
     }
 }

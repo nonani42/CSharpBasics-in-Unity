@@ -32,6 +32,10 @@ namespace Ballgame
         {
             Fly();
             Rotate();
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                _badBonus.Save();
+            }
         }
     }
 }

@@ -29,21 +29,21 @@ namespace Ballgame
         void Awake()
         {
             Time.timeScale = 1f;
+
             _intereactiveObjects = new ListExecuteObjects();
             _reference = new Reference();
+            _reference.RestartBtn.SetActive(false);
             _inputController = new InputController(_player.GetComponent<Unit>());
             _cameraController = new CameraController(_player.transform, _reference.MainCamera.transform);
             _bonusFabric = new BonusFabric();
             _viewGoodBonus = new ViewGoodBonus(_reference.GoodBonus);
             _viewBadBonus = new ViewBadBonus(_reference.BadBonus);
             _viewWonGame = new ViewWonGame(_reference.WinScreen);
-            _reference.RestartBtn.SetActive(false);
             _reference.RestartBtn.GetComponent<Button>().onClick.AddListener(RestartGame);
 
             _intereactiveObjects.AddExecuteObject(_inputController);
             _intereactiveObjects.AddExecuteObject(_cameraController);
             GetBonuses();
-            _bonusToWin = _bonusFabric.GoodBonusAmount;
 
             SetEvents();
         }
@@ -94,15 +94,14 @@ namespace Ballgame
             {
                 if (bonus is GoodBonus _bonusG)
                 {
-                    GoodBonusController t = new GoodBonusController(_bonusG);
-                    _intereactiveObjects.AddExecuteObject(t);
+                    _intereactiveObjects.AddExecuteObject(new GoodBonusController(_bonusG));
                 }
                 else if (bonus is BadBonus _bonusB)
                 {
-                    BadBonusController t = new BadBonusController(_bonusB);
-                    _intereactiveObjects.AddExecuteObject(t);
+                    _intereactiveObjects.AddExecuteObject(new BadBonusController(_bonusB));
                 }
             }
+            _bonusToWin = _bonusFabric.GoodBonusAmount;
         }
 
         void Update()

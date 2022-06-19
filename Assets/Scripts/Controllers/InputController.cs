@@ -20,6 +20,12 @@ namespace Ballgame
             vertical = Input.GetAxis("Vertical");
 
             _player.Move(horizontal, 0f, vertical);
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                //(_player as Player).Save();
+                _player.Save();
+            }
         }
     }
 }

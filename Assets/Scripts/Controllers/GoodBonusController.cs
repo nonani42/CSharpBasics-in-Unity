@@ -32,7 +32,10 @@ namespace Ballgame
         {
             Fly();
             Flicker();
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                _goodBonus.Save();
+            }
         }
-
     }
 }

@@ -15,6 +15,8 @@ namespace Ballgame
 
         private void Awake()
         {
+            BonusData = new BonusData();
+            _data = new JSONData<BonusData>();
             _transform = GetComponent<Transform>();
             flightHeight = Random.Range(1f, 4f);
             rotationSpeed = Random.Range(20f, 40f);
@@ -23,6 +25,20 @@ namespace Ballgame
         protected override void Interaction()
         {
             OnCaughtPlayer.Invoke(gameObject.name, _color);
+        }
+
+        public override void Save()
+        {
+            BonusData.BonusName = gameObject.name;
+            BonusData.BonusInteractive = _isInteractive;
+            BonusData.BonusPosition = _transform.position;
+
+            _data.Save(BonusData);
+
+            BonusData newBBonus = _data.Load();
+            Debug.Log(newBBonus.BonusName);
+            Debug.Log(newBBonus.BonusInteractive);
+            Debug.Log($"Position:{newBBonus.BonusPosition.X}, {newBBonus.BonusPosition.Y}, {newBBonus.BonusPosition.Z}");
         }
     }
 }
