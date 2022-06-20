@@ -1,11 +1,19 @@
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Xml;
+using System;
+
+using Object = UnityEngine.Object;
+using System.Xml.Serialization;
 
 namespace Ballgame
 {
     public sealed class Reference
     {
+        private string _path;
+
         private GameObject _goodBonus;
         private GameObject _badBonus;
         private GameObject _restartBtn;
@@ -13,7 +21,7 @@ namespace Ballgame
 
         private GameObject _goodBonusPrefab;
         private GameObject _badBonusPrefab;
-        private List<Transform> _points;
+        private List<Vector3> _points;
 
         private GameObject _bonusDotPrefab;
 
@@ -59,17 +67,28 @@ namespace Ballgame
             private set => _badBonusPrefab = value;
         }
 
-        public List<Transform> BonusPoints
+        public List<Vector3> BonusPoints
         {
             get
             {
                 if (_points == null)
                 {
-                    GameObject temp = Object.Instantiate(Resources.Load<GameObject>("Bonus/SpawnBonuses"));
-                    _points = new List<Transform>();
-                    foreach (Transform child in temp.transform)
+                    _points = new List<Vector3>();
+                    _path = Path.Combine(Application.dataPath + "/WaypointData/BonusMap_Maze_01.xml");
+                    if (!File.Exists(_path))
                     {
-                        _points.Add(child);
+                        Debug.Log("File doesn't exist");
+                        return _points;
+                    }
+
+                    XmlSerializer serializer = new(typeof(SVect3[]));
+                    using (FileStream reader = new(_path, FileMode.Open))
+                    {
+                        SVect3[] temp = (SVect3[])serializer.Deserialize(reader);
+                        foreach(var t in temp)
+                        {
+                            _points.Add(t);
+                        }
                     }
                 }
                 return _points;

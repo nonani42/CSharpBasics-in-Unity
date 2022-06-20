@@ -11,7 +11,7 @@ namespace Ballgame
     public class BonusFabric
     {
         private Reference _ref;
-        private List<Transform> _points;
+        private List<Vector3> _points;
         private GameObject _goodBonusPrefab;
         private GameObject _badBonusPrefab;
 
@@ -24,7 +24,7 @@ namespace Ballgame
             _goodBonusPrefab = _ref.GoodBonusPrefab;
             _badBonusPrefab = _ref.BadBonusPrefab;
             _points = _ref.BonusPoints;
-
+            Debug.Log(_points.Count);
             DividePoints();
         }
 
@@ -44,16 +44,14 @@ namespace Ballgame
             for (int i = 0; i < GoodBonusAmount; i++)
             {
                 r = Random.Range(0, (_points.Count));
-                temp = Object.Instantiate(_goodBonusPrefab, _points[r]);
-                temp.transform.parent = null;
+                temp = Object.Instantiate(_goodBonusPrefab, _points[r], Quaternion.identity);
                 result.Add(temp.GetComponent<Bonus>());
                 _points.Remove(_points[r]);
             }
             for (int i = 0; i < _badBonusAmount; i++)
             {
                 r = Random.Range(0, (_points.Count));
-                temp = Object.Instantiate(_badBonusPrefab, _points[r]);
-                temp.transform.parent = null;
+                temp = Object.Instantiate(_badBonusPrefab, _points[r], Quaternion.identity);
                 result.Add(temp.GetComponent<Bonus>());
                 _points.Remove(_points[r]);
             }

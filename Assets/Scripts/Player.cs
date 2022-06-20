@@ -19,6 +19,7 @@ namespace Ballgame
         PlayerData SinglePlayerData;
         private ISaveData<PlayerData> _data;
 
+        [Header("Add in editor")]
         [SerializeField] Transform _playerDot;
 
         void Awake()

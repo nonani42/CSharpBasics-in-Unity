@@ -6,6 +6,7 @@ namespace Ballgame
 {
     public abstract class Unit : MonoBehaviour
     {
+        [Header("For debug")]
         [SerializeField] public Rigidbody _rb;
         public Transform _transform;
 

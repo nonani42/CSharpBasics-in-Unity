@@ -21,7 +21,7 @@ namespace Ballgame
 
         private int _bonusCount;
         private int _bonusToWin;
-
+        [Header("Add in editor")]
         [SerializeField] private GameObject _player;
 
         public event Action<string, Color> Win = delegate (string bonusCount, Color color) { };
