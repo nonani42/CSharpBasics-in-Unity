@@ -23,6 +23,9 @@ namespace Ballgame
             flightHeight = Random.Range(1f, 4f);
             _material = GetComponent<Renderer>().material;
             _points = 1;
+
+            _ref = new();
+            CreateDot();
         }
 
         protected override void Interaction()
@@ -44,6 +47,9 @@ namespace Ballgame
             Debug.Log($"Position:{newGBonus.BonusPosition.X}, {newGBonus.BonusPosition.Y}, {newGBonus.BonusPosition.Z}");
         }
 
-
+        public override void CreateDot()
+        {
+            _dot = Instantiate(_ref.BonusDotPrefab, new Vector3(_transform.position.x, 50, _transform.position.z), _transform.rotation);
+        }
     }
 }

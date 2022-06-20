@@ -18,6 +18,9 @@ namespace Ballgame
     {
         PlayerData SinglePlayerData;
         private ISaveData<PlayerData> _data;
+
+        [SerializeField] Transform _playerDot;
+
         void Awake()
         {
             _transform = transform;
@@ -38,6 +41,7 @@ namespace Ballgame
             if(_rb)
             {
                 _rb.AddForce(new Vector3(x, y, z) * Speed);
+                _playerDot.position = new Vector3(_transform.position.x, _playerDot.position.y, _transform.position.z);
             }
             else
             {

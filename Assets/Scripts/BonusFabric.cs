@@ -14,6 +14,7 @@ namespace Ballgame
         private List<Transform> _points;
         private GameObject _goodBonusPrefab;
         private GameObject _badBonusPrefab;
+
         private int _goodBonusAmount;
         private int _badBonusAmount;
 

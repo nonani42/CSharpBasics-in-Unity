@@ -20,6 +20,9 @@ namespace Ballgame
             _transform = GetComponent<Transform>();
             flightHeight = Random.Range(1f, 4f);
             rotationSpeed = Random.Range(20f, 40f);
+
+            _ref = new();
+            CreateDot();
         }
 
         protected override void Interaction()
@@ -39,6 +42,11 @@ namespace Ballgame
             Debug.Log(newBBonus.BonusName);
             Debug.Log(newBBonus.BonusInteractive);
             Debug.Log($"Position:{newBBonus.BonusPosition.X}, {newBBonus.BonusPosition.Y}, {newBBonus.BonusPosition.Z}");
+        }
+
+        public override void CreateDot()
+        {
+            _dot = Instantiate(_ref.BonusDotPrefab, new Vector3(_transform.position.x, 50, _transform.position.z), _transform.rotation);
         }
     }
 }

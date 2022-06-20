@@ -20,6 +20,9 @@ namespace Ballgame
         public Transform _transform;
         protected Color _color;
 
+        protected Reference _ref;
+        protected GameObject _dot;
+
         public bool IsInteractive 
         {
             get 
@@ -31,6 +34,9 @@ namespace Ballgame
                 _isInteractive = value;
                 GetComponent<Renderer>().enabled = value;
                 GetComponent<Collider>().enabled = value;
+
+                _dot.GetComponent<Renderer>().enabled = value;
+                _dot.GetComponent<Renderer>().enabled = value;
             }
         }
 
@@ -55,6 +61,7 @@ namespace Ballgame
 
         protected abstract void Interaction();
         public abstract void Save();
+        public abstract void CreateDot();
 
     }
 }

@@ -15,8 +15,23 @@ namespace Ballgame
         private GameObject _badBonusPrefab;
         private List<Transform> _points;
 
+        private GameObject _bonusDotPrefab;
+
         private Canvas _canvas;
         private Camera _mainCamera;
+
+        public GameObject BonusDotPrefab
+        {
+            get
+            {
+                if (_bonusDotPrefab == null)
+                {
+                    _bonusDotPrefab = Resources.Load<GameObject>("UI/BonusDot");
+                }
+                return _bonusDotPrefab;
+            }
+            set => _bonusDotPrefab = value;
+        }
 
         public GameObject GoodBonusPrefab
         {
