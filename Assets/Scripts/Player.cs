@@ -30,7 +30,7 @@ namespace Ballgame
             Speed = 5f;
 
             SinglePlayerData = new PlayerData();
-            _data = new JSONData<PlayerData>();
+            _data = new XMLData<PlayerData>();
         }
 
         public override void Move(float x, float y, float z)

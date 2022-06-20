@@ -18,7 +18,7 @@ namespace Ballgame
             {
                 if (_savePath == null)
                 {
-                    _fileName = $"JSONData{Guid.NewGuid().ToString().Substring(0, 5)}.json";
+                    _fileName = $"{typeof(TType).Name}-{Guid.NewGuid().ToString().Substring(0, 5)}.json";
                     _savePath = Path.Combine(Application.dataPath, _fileName);
                 }
                 return _savePath;

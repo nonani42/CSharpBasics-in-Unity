@@ -7,7 +7,25 @@ namespace Ballgame
 {
     public class StreamData: ISaveData<PlayerData>
     {
-        string SavePath = Path.Combine(Application.dataPath, "StreamData.abc");
+        string _fileName;
+        string _savePath;
+
+        public string SavePath
+        {
+            get
+            {
+                if (_savePath == null)
+                {
+                    _fileName = $"StreamData.abc";
+                    _savePath = Path.Combine(Application.dataPath, _fileName);
+                }
+                return _savePath;
+            }
+            set
+            {
+                _savePath = value;
+            }
+        }
 
         public void Save(PlayerData player)
         {
