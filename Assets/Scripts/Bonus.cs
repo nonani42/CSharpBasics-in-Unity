@@ -20,6 +20,8 @@ namespace Ballgame
         public Transform _transform;
         protected Color _color;
 
+        public int _points;
+
         protected Reference _ref;
         protected GameObject _dot;
 
@@ -62,6 +64,7 @@ namespace Ballgame
         protected abstract void Interaction();
         public abstract void Save();
         public abstract void CreateDot();
+        public abstract void Deconstruct(out Vector3 pos, out int points, out string name);
 
     }
 }

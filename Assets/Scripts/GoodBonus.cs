@@ -10,9 +10,8 @@ namespace Ballgame
     {
         public float flightHeight;
         [SerializeField] public Material _material;
-        public int _points;
 
-        public event Action<int> AddPoints = delegate (int points) { };
+        public event Action<Bonus> AddPoints = delegate (Bonus obj) { };
 
         private void Awake()
         {
@@ -30,7 +29,12 @@ namespace Ballgame
 
         protected override void Interaction()
         {
-            AddPoints.Invoke(_points);
+            AddPoints.Invoke(this);
+        }
+
+        public override void Deconstruct(out Vector3 pos, out int points, out string name)
+        {
+            (pos, points, name) = (_transform.position, _points, gameObject.name);
         }
 
         public override void Save()

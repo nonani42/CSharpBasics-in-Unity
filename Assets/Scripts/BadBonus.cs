@@ -11,7 +11,7 @@ namespace Ballgame
         public float flightHeight;
         public float rotationSpeed;
 
-        public event Action<string, Color> OnCaughtPlayer = delegate (string str, Color color) { };
+        public event Action<Bonus> OnCaughtPlayer = delegate (Bonus obj) { };
 
         private void Awake()
         {
@@ -20,6 +20,7 @@ namespace Ballgame
             _transform = GetComponent<Transform>();
             flightHeight = Random.Range(1f, 4f);
             rotationSpeed = Random.Range(20f, 40f);
+            _points = 1;
 
             _ref = new();
             CreateDot();
@@ -27,7 +28,12 @@ namespace Ballgame
 
         protected override void Interaction()
         {
-            OnCaughtPlayer.Invoke(gameObject.name, _color);
+            OnCaughtPlayer.Invoke(this);
+        }
+
+        public override void Deconstruct(out Vector3 pos, out int points, out string name)
+        {
+            (pos, points, name) = (_transform.position, _points, gameObject.name);
         }
 
         public override void Save()

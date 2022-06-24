@@ -5,19 +5,20 @@ using UnityEngine.UI;
 
 namespace Ballgame
 {
-    public class ViewBadBonus
+    public class ViewGameOverScreenHealth
     {
         private Text _labelText;
 
-        public ViewBadBonus(GameObject badBonusPrefab)
+        public ViewGameOverScreenHealth(GameObject badBonusPrefab)
         {
             _labelText = badBonusPrefab.GetComponent<Text>();
             _labelText.text = string.Empty;
         }
 
-        public void GameOver(string name, Color color)
+        public void GameOver(Bonus obj)
         {
-            _labelText.text = $"Game over. Bonus name: {name} and color: {color}";
+            (Vector3 pos, int value, string name) = obj;
+            _labelText.text = $"Game over. You've been killed by {name} at {pos}.";
         }
 
     }

@@ -1,23 +1,24 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ballgame
 {
     public sealed class ListExecuteObjects : IEnumerator, IEnumerable  
     {
-        private IExecute[] _interactiveObjects;
+        private IExecute[] _executiveObjects;
         private int _index = -1;
 
-        public object Current => _interactiveObjects[_index];
-        public int Length => _interactiveObjects.Length;
+        public object Current => _executiveObjects[_index];
+        public int Length => _executiveObjects.Length;
 
         public IEnumerator GetEnumerator()
         {
             return this;
         }
 
-        IEnumerator IEnumerable.GetEnumerator() //зачем, если уже прописан GetEnumerator()?
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
@@ -40,27 +41,27 @@ namespace Ballgame
 
         public void AddExecuteObject(IExecute execute)
         {
-            if(_interactiveObjects == null)
+            if (_executiveObjects == null)
             {
-                _interactiveObjects = new[]
+                _executiveObjects = new[]
                 {
                     execute
                 };
                 return;
             }
-            Array.Resize(ref _interactiveObjects, Length + 1);
-            _interactiveObjects[Length - 1] = execute;
+            Array.Resize(ref _executiveObjects, Length + 1);
+            _executiveObjects[Length - 1] = execute;
         }
 
         public IExecute this[int index]
         {
             get
             {
-                return _interactiveObjects[index];
+                return _executiveObjects[index];
             }
             set
             {
-                _interactiveObjects[index] = value;
+                _executiveObjects[index] = value;
             }
         }
     }

@@ -14,8 +14,16 @@ namespace Ballgame
     {
         private string _path;
 
+        private GameObject _playerUI;
+
+        private GameObject _goal;
+        private GameObject _timer;
+
+
         private GameObject _goodBonus;
-        private GameObject _badBonus;
+        private GameObject _gameOverHealth;
+        private GameObject _gameOverTime;
+
         private GameObject _restartBtn;
         private GameObject _winScreen;
 
@@ -115,14 +123,14 @@ namespace Ballgame
         {
             get
             {
-                if (_badBonus == null)
+                if (_gameOverHealth == null)
                 {
                     GameObject temp = Resources.Load<GameObject>("UI/GameOver");
-                    _badBonus = Object.Instantiate(temp, Canvas.transform);
+                    _gameOverHealth = Object.Instantiate(temp, Canvas.transform);
                 }
-                return _badBonus;
+                return _gameOverHealth;
             }
-            set => _badBonus = value;
+            set => _gameOverHealth = value;
         }
 
         public GameObject WinScreen
@@ -177,6 +185,62 @@ namespace Ballgame
                 return _mainCamera;
             }
             set => _mainCamera = value;
+        }
+
+        public GameObject PlayerUI
+        {
+            get
+            {
+                if (_playerUI == null)
+                {
+                    GameObject temp = Resources.Load<GameObject>("UI/PlayerUI");
+                    _playerUI = Object.Instantiate(temp, Canvas.transform);
+                }
+                return _playerUI;
+            }
+            set => _playerUI = value;
+        }
+
+        public GameObject GoalView
+        {
+            get
+            {
+                if (_goal == null)
+                {
+                    GameObject temp = Resources.Load<GameObject>("UI/Goal");
+                    _goal = Object.Instantiate(temp, Canvas.transform);
+                }
+                return _goal;
+            }
+            set => _goal = value;
+        }
+
+        public GameObject Timer
+        {
+            get
+            {
+                if (_timer == null)
+                {
+                    GameObject temp = Resources.Load<GameObject>("UI/Timer");
+                    _timer = Object.Instantiate(temp, Canvas.transform);
+                }
+                return _timer;
+            }
+            set => _timer = value;
+        }
+
+        public GameObject GameOverTime
+        {
+            get
+            {
+                if (_gameOverTime == null)
+                {
+                    GameObject temp = Resources.Load<GameObject>("UI/TimesUp");
+                    _gameOverTime = Object.Instantiate(temp, Canvas.transform);
+                }
+                return _gameOverTime;
+            }
+            set => _gameOverTime = value;
         }
     }
 }

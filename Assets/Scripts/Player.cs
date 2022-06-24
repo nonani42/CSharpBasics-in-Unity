@@ -22,6 +22,22 @@ namespace Ballgame
         [Header("Add in editor")]
         [SerializeField] Transform _playerDot;
 
+
+        public event Action<int> Hit = delegate (int health) { };
+
+
+        public bool IsDead {
+            get 
+            {
+                if (Health <= 0) 
+                {
+                    isDead = true;
+                }
+                return isDead;
+            }
+            private set => isDead = value; }
+
+
         void Awake()
         {
             _transform = transform;
@@ -29,8 +45,8 @@ namespace Ballgame
             {
                 _rb = GetComponent<Rigidbody>();
             }
-            isDead = false;
-            Health = 100;
+            IsDead = false;
+            Health = 3;
             Speed = 5f;
 
             SinglePlayerData = new PlayerData();
@@ -50,12 +66,20 @@ namespace Ballgame
             }
         }
 
+        public void GetHit(Bonus obj)
+        {
+            (Vector3 pos, int value, string name) = obj;
+            Health -= value;
+            Hit.Invoke(Health);
+        }
+
+
         public override void Save()
         {
             SinglePlayerData.PlayerName = gameObject.name;
             SinglePlayerData.PlayerHealth = Health;
             SinglePlayerData.PlayerSpeed = Speed;
-            SinglePlayerData.PlayerDead = isDead;
+            SinglePlayerData.PlayerDead = IsDead;
             SinglePlayerData.PlayerPosition = _transform.position;
 
             _data.Save(SinglePlayerData);
